@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vim:fdl=1:
+-->
+<templates id="template" xml:space="preserve">
+    <t t-name="jzebra-applet">
+        <script type="text/javascript">
+              function monitorPrinting() {
+	            var applet = document.jzebra;
+	            if (applet != null) {
+	               if (!applet.isDonePrinting()) {
+	                  window.setTimeout('monitorPrinting()', 100);
+	               } else {
+	                  var e = applet.getException();
+	                  alert(e == null ? "Printed Successfully" : "Exception occured: " + e.getLocalizedMessage());
+	               }
+	            } else {
+                        alert("Applet not loaded!");
+                    }
+              }
+
+              function printFile() {
+//                alert(document.applets['jzebra']);
+                var epl = $('#epl')
+              	var applet = document.jzebra;
+                if (applet != null) {
+                    applet.append(epl.val());
+//                    applet.append("P"+$("#jzebra_number").val()+"\\r\\n");
+//	                applet.print();
+                    applet.printToFile("/mnt/disk/projects/servicios/erp/openerp/git/jZebra/dist/jzebra_test.txt");
+	            }
+	            monitorPrinting();
+              }
+
+            function jzebraReady() {
+                alert('jzebraReady');
+            }
+        </script>
+        <textarea id="epl" rows="5" cols="60"/>
+        <div id="applet"><applet name="jzebra" code="jzebra.PrintApplet.class" archive="http://localhost/jzebrasrc/jzebra.jar" width="10" height="10">
+              <param name="printer" value="zebra"/>
+              <!-- <param name="sleep" value="200"> -->
+           </applet>
+        </div>
+
+        <input type="button" value="Load EPL"/>
+        <input type="button" onClick="printFile()" value="Print File"/>
+        <input type="number" value="1" min="1" max="15" id="jzebra_number"/>
+    </t>
+</templates>
+

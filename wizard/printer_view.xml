@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+
+<!--		<wizard
+			string="Add delivery line"
+			model="purchase.order"
+			name="delivery.purchase.order"
+			id="wizard_deliver_line_add"
+			keyword="client_action_multi"/>-->
+
+<!--  Delivery Purchase Order -->
+        
+        <record id="view_jzebra_printer_wizard" model="ir.ui.view">
+            <field name="name">jzebra_printer</field>
+            <field name="model">jzebra.printer</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Create Deliveries">
+                    <field name="product_id" widget="jzebra"/>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_jzebra_printer" model="ir.actions.act_window">
+            <field name="name">jzebra_printer</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jzebra.printer</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_jzebra_printer_wizard"/>
+            <field name="context">{"jzebra_action_id":394}</field>
+            <field name="target">new</field>            
+        </record>
+
+<record model="ir.values" id="ir_open_jzebra_printer">
+    <field name="key2">client_action_multi</field>
+    <field name="model">product.product</field>
+    <field name="name">jzebra</field>
+    <field name="value" eval="'ir.actions.act_window,%d'%action_jzebra_printer"/>
+    <field name="object" eval="True"/>
+</record>
+
+	</data>
+</openerp>

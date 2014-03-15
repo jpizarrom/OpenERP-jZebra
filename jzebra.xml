@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.actions.client" id="action_jzebra_touchscreen">
+          <field name="name">Start jzebra</field>
+          <field name="tag">jzebra.ui</field>
+        </record>
+
+        <record id="menu_jzebra_root_touchscreen" model="ir.ui.menu">
+          <field name="name">jzebra</field>
+          <field name="sequence" eval="21"/>
+          <field name="action" ref="action_jzebra_touchscreen"/>
+        </record>
+
+    </data>
+</openerp>
